@@ -5,7 +5,7 @@ gem 'rails_helper', '~> 2.1.0'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails'
+  gem "rspec-rails", ">= 2.8.1"
   gem 'debugger'
 end
 
@@ -20,9 +20,15 @@ end
 gem 'jquery-rails', '2.0.2'
 
 group :test do
-  gem 'capybara', '1.1.2'
+  gem "factory_girl_rails", ">= 1.6.0"
+  gem "cucumber-rails", ">= 1.2.1"
+  gem "capybara", ">= 1.1.2"
 end
 
 group :production do
   gem 'pg', '0.12.2'
 end
+
+source 'https://rubygems.org'
+
+gem 'bootstrap-sass', '2.1'
