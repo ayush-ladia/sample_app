@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 gem 'rails_helper', '~> 2.1.0'
+gem 'bootstrap-sass', '2.1'
 
 group :development, :test do
   gem 'sqlite3'
@@ -29,6 +30,3 @@ group :production do
   gem 'pg', '0.12.2'
 end
 
-source 'https://rubygems.org'
-
-gem 'bootstrap-sass', '2.1'
