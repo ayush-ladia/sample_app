@@ -1,4 +1,5 @@
 <% provide(:title, @user.name) %>
+
 <div class="row">
   <aside class="span4">
     <section>
@@ -6,9 +7,28 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      <div>
       <h4>
-      	<span>Cash available : $<%= @user.cash_in_hand %></span>
+      	Cash available :$<%= @user.cash_in_hand %>
       </h4>
+    </div>
     </section>
   </aside>
+
+  <div>
+    </div>
+      <ol class="microposts">
+      <% @my_stocks.each do |s| %>
+              <li>
+                <% rate = YahooFinance.quotes([s.symbol], [:bid_real_time])[0].bid_real_time %>
+                <span class="content"><%= s.symbol  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"><%= s.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"><%= rate  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"><%= rate.to_f * s.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </li>
+      <% end %>
+      </ol>
+  </div>
+  </div>
+
 </div>
