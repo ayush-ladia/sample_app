@@ -2,16 +2,27 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  admin           :boolean
+#  cash_in_hand    :float
+#  total_portfolio :float
+#  password        :string(255)
 #
-class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
-  has_secure_password
 
+class User < ActiveRecord::Base
+  attr_accessible :name, :email, :cash_in_hand, :password, :password_confirmation
+ 
+  has_secure_password
+  has_many :stocks
+  has_many :transactions
+
+  before_create :validate_user
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
@@ -20,14 +31,18 @@ class User < ActiveRecord::Base
   validates :email, presence:   true,
                     format:     { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
-
 
   private
 
     def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
+      if self.password.present?
+        self.remember_token = SecureRandom.urlsafe_base64
+      end
+    end
+
+    def validate_user
+      self.cash_in_hand = 10000
+      self.password == self.password_confirmation
     end
 end
 

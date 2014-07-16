@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.cash_in_hand = 10000;
+    @user.total_portfolio = 10000;
     if @user.save
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
@@ -20,6 +22,8 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
+    @user.cash_in_hand = 10000
+    @user.total_portfolio = 10000
   end
 
   def index
@@ -35,10 +39,6 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def index
-    @users = User.paginate(page: params[:page])
   end
 
   def destroy

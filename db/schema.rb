@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140714095521) do
+ActiveRecord::Schema.define(:version => 20140716061314) do
+
+  create_table "stocks", :force => true do |t|
+    t.string   "symbol"
+    t.integer  "quantity"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "stocks", ["user_id", "created_at"], :name => "index_stocks_on_user_id_and_created_at"
+
+  create_table "transactions", :force => true do |t|
+    t.string   "symbol"
+    t.string   "action"
+    t.integer  "quantity"
+    t.integer  "user_id"
+    t.float    "rate"
+    t.float    "amount"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "transactions", ["user_id", "created_at"], :name => "index_transactions_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -21,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20140714095521) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin"
+    t.float    "cash_in_hand"
+    t.float    "total_portfolio"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
