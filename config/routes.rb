@@ -7,6 +7,7 @@ SampleApp::Application.routes.draw do
    resources :stocks, only: [:index]
    resources :transactions
 
+   match '/transactions', to: 'transactions#index'
    match '/signup',  to: 'users#new'
    match '/signin',  to: 'sessions#new'
    match '/signout', to: 'sessions#destroy', via: :delete
