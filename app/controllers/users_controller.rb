@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user.cash_in_hand = 10000;
     @user.total_portfolio = 10000;
     if @user.save
+      sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
