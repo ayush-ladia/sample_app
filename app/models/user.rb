@@ -19,8 +19,9 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :cash_in_hand, :password, :password_confirmation
  
   has_secure_password
-  has_many :stocks
-  has_many :transactions
+  has_many :stocks ,dependent: :destroy
+  has_many :transactions , dependent: :destroy
+  
 
   before_create :validate_user
   before_save { |user| user.email = email.downcase }
