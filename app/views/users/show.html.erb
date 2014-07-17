@@ -29,7 +29,7 @@
                 <td><%= s.symbol  %></td>
                 <td><%= s.quantity  %></td>
                 <td><%= rate  %></td>
-                <td><%= rate.to_f * s.quantity  %></td>
+                <td><%=((rate.to_f * s.quantity)*100).to_i / 100.0%></td>
                 <td> <% @transaction = current_user.transactions.build %>
                       <%= form_for(@transaction) do |f| %>
                       <%= f.hidden_field :symbol, :value => s.symbol %>
