@@ -17,14 +17,27 @@
 
   <div>
     </div>
-      <ol class="microposts">
+      <ol class="table">
+        <li>
+          <span class="content">symbol&nbsp;&nbsp;</span>
+          <span class="content">quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="content">current rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span class="content">total current worth</span>
+        </li>
       <% @my_stocks.each do |s| %>
               <li>
                 <% rate = YahooFinance.quotes([s.symbol], [:bid_real_time])[0].bid_real_time %>
                 <span class="content"><%= s.symbol  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <span class="content"><%= s.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span class="content"><%= rate  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span class="content"><%= rate.to_f * s.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"><%= rate  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"><%= rate.to_f * s.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="content"> <% @transaction = current_user.transactions.build %>
+                      <%= form_for(@transaction) do |f| %>
+                      <%= f.hidden_field :symbol, :value => s.symbol %>
+                      <%= f.hidden_field :action, :value => "sell" %>
+                      <%= f.hidden_field :rate, :value => rate %>
+                      <%= f.submit "sell", class: "btn  btn-primary" %>
+                      <% end %>
             </li>
       <% end %>
       </ol>
