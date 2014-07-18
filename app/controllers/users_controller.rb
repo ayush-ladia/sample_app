@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
 
   def show
+    debugger
     @user = User.find(params[:id])
     @my_stocks = @user.stocks
   end

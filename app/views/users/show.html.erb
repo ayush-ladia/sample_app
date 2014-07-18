@@ -27,6 +27,7 @@
       <% @my_stocks.each do |s| %>
               <tr>
                 <% rate = YahooFinance.quotes([s.symbol], [:ask_real_time])[0].ask_real_time %>
+                <% debugger %>
                 <td><%= s.symbol  %></td>
                 <td><%= s.quantity  %></td>
                 <td><%= rate  %></td>
