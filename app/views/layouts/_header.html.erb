@@ -1,7 +1,11 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "sample app", root_path, id: "logo" %>
+      <% if signed_in? %>
+            <%= link_to "stocometer", current_user, id: "logo" %></li>
+          <% else %>
+            <%= link_to "stocometer", root_path, id: "logo" %></li>
+          <% end %>
       <nav>
         <ul class="nav pull-right">
           <% if signed_in? %>
