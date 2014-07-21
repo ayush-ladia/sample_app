@@ -1,0 +1,11 @@
+<tr>
+
+  <td><%= transaction.symbol  %></td>
+  <td><%= transaction.action %></td>
+  <td><%= transaction.rate %></td>
+  <td><%= transaction.quantity %></td>
+  <% amount = transaction.rate * transaction.quantity %>
+  <td><%= (amount * 100).to_i / 100.0 %></td>
+  <td><%= transaction.updated_at %></td>
+  <td><%= time_ago_in_words(transaction.updated_at) %>
+</tr>

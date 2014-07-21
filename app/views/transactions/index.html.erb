@@ -1,0 +1,15 @@
+<% provide(:title, "Stocks") %>
+<h3> Your Transactions history</h3>
+<div class="span8">
+	<table class = "table table-striped table-bordered table-condensed table-hover">
+      <th>
+		  <td> buy/sell</td>
+		  <td> rate </td>
+		  <td> quantity </td>
+		  <td> amount </td>
+		  <td> transaction time </td>
+		  <td> time passed </td>
+      </th>
+        <%= render partial: "transactions/transaction", collection: @transactions %>
+      </table>
+  </div>

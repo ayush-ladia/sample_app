@@ -1,0 +1,58 @@
+<% @transaction ||= current_user.transactions.build(params[:transaction]) %>
+<% @stock = YahooFinance.quotes([@transaction.symbol], [:symbol, :last_trade_date,:eps_estimate_current_year,:eps_estimate_next_year,:low_52_weeks,:high_52_weeks,:dividend_per_share, :ask_real_time , :bid_real_time])[0] %>
+<h3>Stock details:</h3>
+<table class = "table table-striped table-bordered table-condensed table-hover" >
+	<tr>
+		<th> "name:            "</th>
+		<td> <%= @stock.symbol %> </td>
+	</tr>
+	<tr>
+		<th> last trade date:            </th>
+		<td> <%= @stock.last_trade_date %> </td>
+	</tr>
+	<tr>
+		<th> eps estimate current year:   </th>
+		<td> <%= @stock.eps_estimate_current_year %> </td>
+	</tr>
+	<tr>
+		<th> eps estimate last year:   </th>
+		<td> <%= @stock.eps_estimate_next_year %> </td>
+	</tr>
+	<tr>
+		<th> low 52 weeks:   </th>
+		<td> <%= @stock.low_52_weeks %> </td>
+	</tr>
+	<tr>
+		<th> high 52 weeks:   </th>
+		<td> <%= @stock.high_52_weeks %> </td>
+	</tr>
+	<tr>
+		<th> dividend per share:   </th>
+		<td> <%= @stock.dividend_per_share %> </td>
+	</tr>
+	<tr>
+		<th> current price :   </th>
+		<td> <%= @stock.ask_real_time %> </td>
+	</tr>
+</table>
+
+<div>
+ <h6>
+ 	<span>cash in hand : $</span>
+    <span><%= current_user.cash_in_hand %></span>
+</h6>
+<%= form_for(@transaction, remote: true) do |f| %>
+
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity %>
+      <%= f.hidden_field :action, :value => @transaction.action %>
+      <%= f.hidden_field :symbol, :value => @transaction.symbol %>
+      <%= f.hidden_field :rate, :value => @transaction.rate %>
+      <% if @transaction.action == "buy"  %>
+      	<%= f.submit "Request Stocks", class: "btn btn-large btn-primary" %>
+      <% elsif @transaction.action == "sell"  %>
+      	<%= f.submit "Sell Stocks", class: "btn btn-large btn-primary" %>
+      <% end %>
+    <% end %>
+</div>
+

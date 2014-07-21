@@ -1,0 +1,5 @@
+<div id = "cash_available">
+      <h4>
+      	Cash available :$<%= (current_user.cash_in_hand * 100).to_i / 100.0 %>
+      </h4>
+</div>

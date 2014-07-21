@@ -1,0 +1,9 @@
+<% if @transaction.quantity.nil? %>
+	$("#transnew").html("<%= escape_javascript(render('transer')) %>")
+<% else %>
+	$("#transnew").html("")
+	$("#stock_view").html("<%= escape_javascript(render('stock_reloader')) %>")
+<% end %>
+<% #debugger %>
+$("#flash_alerter").replaceWith("<%= escape_javascript(render('layouts/flash_alerts' , :flash => flash)) %>")
+$("#cash_available").replaceWith("<%= escape_javascript(render('layouts/cash')) %>")

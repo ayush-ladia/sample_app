@@ -1,0 +1,7 @@
+<li>
+	<% rate = YahooFinance.quotes([@my_stock.symbol][:bid_real_time])[0].bid_real_time %>
+	<span class="content"><%= my_stock.symbol  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span class="content"><%= my_stock.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span class="content"><%= rate  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<span class="content"><%= rate * my_stock.quantity  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</li>

@@ -1,0 +1,18 @@
+ <tr>
+  <td><%= stock.symbol  %></td>
+  <td><%= stock.last_trade_price %></td>
+  <td><%= stock.last_trade_date %></td>
+  <td><%= stock.change %></td>
+  <td><%= stock.previous_close %></td>
+  <td><%= stock.low_52_weeks %></td>
+  <td><%= stock.high_52_weeks %></td>
+  <td><%= stock.ask_real_time %></td>
+  <td> <% @transaction = current_user.transactions.build %>
+  	  <%= form_for(@transaction, remote: true) do |f| %>
+  	  	<%= f.hidden_field :symbol, :value => stock.symbol[1..-2] %>
+        <%= f.hidden_field :action, :value => "buy" %>
+        <%= f.hidden_field :rate, :value => stock.ask_real_time %>
+	  	<%= f.submit "Buy", class: "btn  btn-primary" %>
+	<% end %>
+  </td>   
+</tr>
