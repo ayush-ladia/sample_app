@@ -28,6 +28,9 @@ class UsersController < ApplicationController
     @user.total_portfolio = 10000
   end
 
+  def edit
+  end
+
   def index
     @users = User.paginate(page: params[:page])
   end

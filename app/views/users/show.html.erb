@@ -12,34 +12,36 @@
   </aside>
 </div>
 
-<div style = "width:1200px;border-right:5px;"  id = "stock_view">
-<div align="center" class="pull-left vertical" style="width:500px; margin:20px 75px 20px 20px; border-right: 2px solid grey; padding-right:50px;">
-      <table class = "table table-striped table-bordered table-condensed table-hover float-left">
-        <th>
-          <td>In hand</td>
-          <td>current rate</td>
-          <td>total current worth</td>
-        </th>
-      <% @my_stocks.each do |s| %>
-              <tr>
-                <% rate = YahooFinance.quotes([s.symbol], [:ask_real_time])[0].ask_real_time %>
-                <td><%= s.symbol  %></td>
-                <td><%= s.quantity  %></td>
-                <td><%= rate  %></td>
-                <td><%=((rate.to_f * s.quantity)*100).to_i / 100.0%></td>
-                <td> <% @transaction = current_user.transactions.build %>
-                      <%= form_for(@transaction, remote: true) do |f| %>
-                      <%= f.hidden_field :symbol, :value => s.symbol %>
-                      <%= f.hidden_field :action, :value => "sell" %>
-                      <%= f.hidden_field :rate, :value => rate %>
-                      <%= f.submit "sell", class: "btn  btn-primary" %>
-                      <% end %>
-            </tr>
-      <% end %>
-      </table>
-  </div>
+<% if @my_stocks.present? %> 
+  <div style = "width:1200px;border-right:5px;"  id = "stock_view">
+  <div align="center" class="pull-left vertical" style="width:500px; margin:20px 75px 20px 20px; border-right: 2px solid grey; padding-right:50px;">
+        <table class = "table table-striped table-bordered table-condensed table-hover float-left">
+          <th>
+            <td>In hand</td>
+            <td>current rate</td>
+            <td>total current worth</td>
+          </th>
+        <% @my_stocks.each do |s| %>
+                <tr>
+                  <% rate = YahooFinance.quotes([s.symbol], [:ask_real_time])[0].ask_real_time %>
+                  <td><%= s.symbol  %></td>
+                  <td><%= s.quantity  %></td>
+                  <td><%= rate  %></td>
+                  <td><%=((rate.to_f * s.quantity)*100).to_i / 100.0%></td>
+                  <td> <% @transaction = current_user.transactions.build %>
+                        <%= form_for(@transaction, remote: true) do |f| %>
+                        <%= f.hidden_field :symbol, :value => s.symbol %>
+                        <%= f.hidden_field :action, :value => "sell" %>
+                        <%= f.hidden_field :rate, :value => rate %>
+                        <%= f.submit "sell", class: "btn  btn-primary" %>
+                        <% end %>
+              </tr>
+        <% end %>
+        </table>
+    </div>
 
-  <div id = "transnew" align="center" class = "pull-right" style="width:300px;float:left;margin-left:10px;">
-  </div>
+    <div id = "transnew" align="center" class = "pull-right" style="width:300px;float:left;margin-left:10px;">
+    </div>
+<% end %>
 
 </div>
